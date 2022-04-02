@@ -1,6 +1,27 @@
-{% extends "template.html" %}
+{% extends "template_unauth.html" %}
 {% block content %}
 
-test
+<h2>
+    CSCB20 - Introduction to Databases and Web Applications
+</h2>
+
+<h3>Login</h3>
+
+<form action="/login" method="post">
+
+<div class="row">
+    <label for="loginUsername">Username</label>
+    <input type="text" id="loginUsername" name="loginUsername" required/>
+</div>
+
+<div class="row">
+    <label for="loginPassword">Password</label>
+    <input type="password" id="loginPassword" name="loginPassword" required/>
+</div>
+
+<div class="row">
+    <button type="submit" name="loginBtn" id="loginBtn">Login</button>
+</div>
+</form>
 
 {% endblock %}

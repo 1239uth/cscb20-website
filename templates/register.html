@@ -1,0 +1,37 @@
+{% extends "template_unauth.html" %}
+{% block content %}
+
+<h2>
+    CSCB20 - Introduction to Databases and Web Applications
+</h2>
+
+<h3>Register</h3>
+
+<form action="/register" method="post">
+
+<div class="row">
+    <label for="regName">Full Name</label>
+    <input type="text" id="regName" name="regName" required/>
+</div>
+
+<div class="row">
+    <label for="regEmail">Email</label>
+    <input type="email" id="regEmail" name="regEmail" required/>
+</div>
+
+<div class="row">
+    <label for="regUsername">Username</label>
+    <input type="text" id="regUsername" name="regUsername" required/>
+</div>
+
+<div class="row">
+    <label for="regPassword">Password</label>
+    <input type="password" id="regPassword" name="regPassword" required/>
+</div>
+
+<div class="row">
+    <button type="submit" name="regBtn" id="regBtn">Register</button>
+</div>
+</form>
+
+{% endblock %}
