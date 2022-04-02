@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/' + page_name + '.css') }}">
+    <title>CSCB20</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/weeklyContent">Weekly Content</a>
+            <a href="/assignments">Assignments</a>
+            <a href="/midterms">Midterms</a>
+            <a href="/labs">Labs</a>
+            <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
+            <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
+            <a href="/anonFeedback">Anon Feedback</a>
+        </nav>
+    </header>
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+    <footer>
+        <a href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
+        <p>Designed by Abdullah Shahid & Uthman Mohamed</p>
+    </footer>
+</body>
+</html>

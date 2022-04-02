@@ -1,0 +1,75 @@
+{% extends "template.html" %}
+{% block content %}
+        <h1>Course Team</h1>
+
+        <!-- INSTRUCTOR -->
+        <h2>Instructor</h2>
+        <section id="instructor">
+            <img src="{{ url_for('static', filename='images/purva.jpg') }}" alt="Purva Picture">
+            <div>
+                <h3>Dr. Purva R. Gawde</h3>
+                <div class="person-info">
+                    <div class="types">
+                        <p>Email:</p>
+                        <p>Office:</p>
+                        <p>Phone:</p>
+                        <p>Lectures:</p>
+                        <p>Office Hours:</p>
+                    </div>
+                    <div>
+                        <p>purva.gawde@utoronto.ca</p>
+                        <p>IC493</p>
+                        <p>(416) 208-4745</p>
+                        <p>Mondays 9:15-11:00 in HW 216</p>
+                        <p>Tuesday 10 to 11 IC 484</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- TA 1 -->
+        <h2>Teaching Assistants</h2>
+        <section>
+            <img src="{{ url_for('static', filename='images/pfp.jpg') }}" alt="blank profile picture">
+            <div>
+                <h3>Rick Lan</h3>
+                <div class="person-info">
+                    <div class="types">
+                        <p>Email:</p>
+                        <p>Tutorial:</p>
+                        <p>Office Hours:</p>
+                    </div>
+                    <div>
+                        <p>rick.lan@mail.utoronto.ca</p>
+                        <p>Monday 12-1pm in BV473</p>
+                        <p>Wednesday 5-6 and Thursday 3-4</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <br>
+
+        <!-- TA 2 -->
+        <section>
+            <img src="{{ url_for('static', filename='images/pfp.jpg') }}" alt="blank profile picture">
+            <div>
+                <h3>Vidya Ananda</h3>
+                <div class="person-info">
+                    <div class="types">
+                        <p>Email:</p>
+                        <p>Tutorial:</p>
+                        <p>Office Hours:</p>
+                    </div>
+                    <div>
+                        <p>Tuesday 12-1pm in BV473</p>
+                        <p>vidya.ananda@mail.utoronto.ca</p>
+                        <p>Tuesday 2 - 4</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        {% endblock %}

@@ -1,0 +1,32 @@
+{% extends "template.html" %}
+{% block content %}
+
+        <h1>Welcome to CSCB20</h1>
+        <section id="course-description">
+            <h2>Course Description</h2>
+            <p>
+                A practical introduction to databases and Web app development. 
+                Databases: terminology and applications; creating, querying and updating databases; the entity-relationship model
+                 for database design. Web documents and applications: static and interactive documents; Web servers and dynamic 
+                 server-generated content; Web application development and interface with databases.
+            </p>
+        </section>
+
+        <section>
+            <h3>Prerequisites</h3>
+            <p>
+                Some experience with programming in an imperative language such as Python, Java or C.
+            </p>
+            <h3>Exclusion</h3>
+            <p>
+                This course may not be taken after - or concurrently with - any C- or D-level CSC course.
+            </p>
+        </section>
+
+        <nav class="buttons">
+            <a href="/instructors">Instructors</a>
+            <a href="{{ url_for('static', filename='files/dummy.pdf') }}">Syllabus</a>
+            <a href="/announcements">Announcements</a>
+        </nav>
+
+{% endblock %}
