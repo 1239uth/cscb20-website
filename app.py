@@ -212,7 +212,7 @@ def add_feedback():
         return redirect(url_for('view_feedback'))
 
     page_name = "add_feedback"
-    return render_template("add_feedback.html", page_name = page_name)
+    return render_template("add_feedback.html", page_name = page_name, questions = questions)
 
 """
     Anonymous Feedback (Instructors)
@@ -312,6 +312,17 @@ def get_name(username):
 
 def is_student(username):
     return User.query.filter_by(username = username).first().type == 'student'
+
+
+"""
+Constants & Other variables
+"""
+# Can easily make this dynamic, but not a requirement.
+questions = {1: "What do you like about the instructor teaching?",
+             2: "What do you recommend the instructor to do to improve their teaching?",
+             3: "What do you like about the labs?",
+             4: "What do you recommend the lab instructors to do to improve their lab teaching?"}
+
 
 """
 Run

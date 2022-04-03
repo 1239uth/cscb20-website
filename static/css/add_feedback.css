@@ -102,6 +102,10 @@ main a:hover {
     text-decoration: unset;
 }
 
+/* Specifics */
+.feedback-form {
+    width: 80%;
+}
 
 
 /* MOBILE DESIGN */

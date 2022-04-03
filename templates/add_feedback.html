@@ -12,9 +12,20 @@
         <br>
 
         <section>
-            <h1>Feedback Form</h1>
-            <textarea placeholder="Enter your feedback anonymously here" name="feedback-form" id="feedback-form" cols="50" rows="10"></textarea>
-            <br>
+
+            {% for id, question in questions | dictsort %}
+
+                <div class="row">
+                    <h4>{{question}}</h4>
+                    <textarea name="feedback-form" class="feedback-form" rows=5 cols=50 id='q{{id}}'></textarea>
+                    <br>
+                </div>
+
+
+            {% endfor %}
+
+
+
             <button>Submit</button>
         </section>
 
