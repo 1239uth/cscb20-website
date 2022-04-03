@@ -1,4 +1,4 @@
-{% extends "template_unauth.html" %}
+{% extends "template.html" %}
 {% block content %}
 
 <h2>
@@ -27,6 +27,11 @@
 <div class="row">
     <label for="regPassword">Password</label>
     <input type="password" id="regPassword" name="regPassword" required/>
+</div>
+
+<div class="row">
+    <label for="regType">Are you an instructor?</label>
+    <input type="checkbox" id="regType" name="regType">
 </div>
 
 <div class="row">

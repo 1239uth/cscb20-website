@@ -9,14 +9,20 @@
 <body>
     <header>
         <nav>
-            <a href="/">Home</a>
-            <a href="/weeklyContent">Weekly Content</a>
-            <a href="/assignments">Assignments</a>
-            <a href="/midterms">Midterms</a>
-            <a href="/labs">Labs</a>
-            <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
-            <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
-            <a href="/anonFeedback">Anon Feedback</a>
+            {% if session.username %}
+                <a href="/">Home</a>
+                <a href="/weeklyContent">Weekly Content</a>
+                <a href="/assignments">Assignments</a>
+                <a href="/midterms">Midterms</a>
+                <a href="/labs">Labs</a>
+                <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
+                <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
+                <a href="/anonFeedback">Anon Feedback</a>
+                <a href="/logout">Log out</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">register</a>
+            {% endif %}
         </nav>
     </header>
     <main>
