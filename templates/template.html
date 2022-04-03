@@ -11,13 +11,22 @@
         <nav>
             {% if session.username %}
                 <a href="/">Home</a>
+                {% if session.is_student %}
+                    <a href="/view/grades">View Grades</a>
+                {% else %}
+                    <a href='/add/grades'>Add Grades</a>
+                {% endif %}
                 <a href="/weeklyContent">Weekly Content</a>
                 <a href="/assignments">Assignments</a>
                 <a href="/midterms">Midterms</a>
                 <a href="/labs">Labs</a>
                 <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
                 <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
-                <a href="/anonFeedback">Anon Feedback</a>
+                {% if session.is_student %}
+                    <a href="/add/feedback">Feedback</a>
+                {% else %}
+                    <a href="/view/feedback">Feedback</a>
+                {% endif %}
                 <a href="/logout">Log out</a>
             {% else %}
                 <a href="/login">Login</a>

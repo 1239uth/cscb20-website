@@ -44,6 +44,7 @@ class Assessment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(30), unique = True, nullable = False)
     type = db.Column(db.String(30), nullable = False)
+    score = db.Column(db.Integer)
     weight = db.Column(db.Integer, nullable = False)
 
     def __repr__(self):
@@ -95,6 +96,7 @@ def login():
         # Check auth
         if check_auth(username, password):
             session['username'] = username
+            session['is_student'] = is_student(username)
             session.permanent = True
             return redirect(url_for('root'))
         else:
@@ -153,8 +155,38 @@ def root():
         return redirect(url_for('login'))
     else:
         page_name = "home"
-        return render_template('home.html', page_name = page_name)
+        name = get_name(session['username']).capitalize()
+        return render_template('home.html',
+                               page_name = page_name,
+                               name = name )
 
+
+"""
+    View Grades
+"""
+@app.route('/view/grades')
+def view_grades():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if not session['is_student']:
+        return redirect(url_for('add_grades'))
+
+    page_name = 'view_grades'
+    return render_template('view_grades.html', page_name = page_name)
+
+"""
+    Add Grades
+"""
+@app.route('/add/grades')
+def add_grades():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if session['is_student']:
+        return redirect(url_for('view_grades'))
+
+    return ''
 
 """
     Announcements
@@ -169,15 +201,32 @@ def announcements():
 
 
 """
-    Anon Feedback
+    Anonymous Feedback (Students)
 """
-@app.route('/anonFeedback')
-def anonFeedback():
+@app.route('/add/feedback')
+def add_feedback():
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    page_name = "anonFeedback"
-    return render_template("anonFeedback.html", page_name = page_name)
+    if not session['is_student']:
+        return redirect(url_for('view_feedback'))
+
+    page_name = "add_feedback"
+    return render_template("add_feedback.html", page_name = page_name)
+
+"""
+    Anonymous Feedback (Instructors)
+"""
+@app.route('/view/feedback')
+def view_feedback():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if session['is_student']:
+        return redirect(url_for('add_feedback'))
+
+    return 'TBA'
+
 
 """
     Assignments
@@ -257,6 +306,12 @@ def check_auth(username, password):
     user = User.query.filter_by(username = username).first()
     return not user or not bcrypt.check_password_hash(user.password, password)
 
+def get_name(username):
+    return User.query.filter_by(username = username).first().name
+
+
+def is_student(username):
+    return User.query.filter_by(username = username).first().type == 'student'
 
 """
 Run
