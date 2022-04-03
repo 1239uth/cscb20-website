@@ -17,6 +17,48 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///assignment3.db'
 """
 db = SQLAlchemy(app)
 
+class User(db.Model):
+    __tablename__ = 'User'
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(30), unique = True, nullable = False)
+    email = db.Column(db.String(100), unique = True, nullable = False)
+    password = db.Column(db.String(30), nullable = False)
+    name = db.Column(db.String(30), nullable = False)
+    grades = db.relationship('Grade', backref='author', lazy = True) # Student has grades
+    feedback = db.relationship('Feedback', backref='author', lazy = True) # Instructor has feedback
+
+    def __repr__(self):
+        return f"User('{self.username}')"
+
+class Assessment(db.Model):
+    __tablename__ = 'Assessment'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(30), unique = True, nullable = False)
+    type = db.Column(db.String(30), nullable = False)
+    weight = db.Column(db.Integer, nullable = False)
+
+    def __repr__(self):
+        return f"Assessment('{self.name}', '{self.type}', '{self.weight}%')"
+
+class Grade(db.Model):
+    __tablename__ = 'Grade'
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    ass_id = db.Column(db.Integer, db.ForeignKey('Assessment.id'), nullable = False)
+    score = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"Grade('{self.score}%')"
+
+class Feedback(db.Model):
+    __tablename__ = 'Feedback'
+    id = db.Column(db.Integer, primary_key = True)
+    instructor_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    response_1 = db.Column(db.Text())
+    response_2 = db.Column(db.Text())
+    response_3 = db.Column(db.Text())
+    response_4 = db.Column(db.Text())
+
 
 
 """
