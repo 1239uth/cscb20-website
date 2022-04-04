@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+{% block content %}
+
+{% if session.username %}
+
+    <h1>Edit grade</h1>
+
+
+    <form action="/edit/student/{{username}}/grade/{{grade_id}}" method="post">
+
+        <div class="row">
+            <label for="newAssName">New Assessment Name</label>
+            <input type="text" required placeholder="" name="newAssName" value="{{grade.ass_name}}" required/>
+        </div>
+
+        <div class="row">
+            <label for="newWeight">New Weight (%)</label>
+            <input type="number" required placeholder="" name="newWeight" value="{{grade.weight}}" required/>
+        </div>
+
+        <div class="row">
+            <label for="newScore">New Student Score (%)</label>
+            <input type="number" required placeholder="" name="newScore" value="{{grade.score}}" required/>
+        </div>
+
+        <button type="submit">Edit Grade</button>
+
+
+    </form>
+
+
+
+{%endif%}
+
+{% endblock %}

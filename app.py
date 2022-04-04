@@ -291,6 +291,34 @@ def close_request(id):
     db.session.commit()
     return redirect(url_for('view_remark_requests'))
 
+@app.route('/edit/student/<username>/grade/<grade_id>', methods = ['GET', 'POST'])
+def edit_grade(username, grade_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if session['is_student']:
+        return redirect(url_for('home'))
+
+    if request.method == 'GET':
+        page_name='edit_grade'
+        grade=Grade.query.filter_by(id=grade_id).first()
+        return render_template('edit_grade.html', page_name=page_name, username=username, grade_id=grade_id, grade=grade)
+
+    if request.method == 'POST':
+        new_name = request.form['newAssName']
+        new_weight = request.form['newWeight']
+        new_score = request.form['newScore']
+
+        db.session.query(Grade).filter(Grade.id == grade_id).update({
+            'ass_name': new_name,
+            'weight': new_weight,
+            'score': new_score
+        })
+
+        db.session.commit()
+
+        return redirect(url_for('view_student', username=username))
+
 
 """
     Announcements

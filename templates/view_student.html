@@ -56,6 +56,11 @@
                     <p>Score: {{grade.score}}%</p>
                     <p>Weight: {{grade.weight}}%</p>
                 </div>
+
+                <form action="/edit/student/{{student.username}}/grade/{{grade.id}}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+
                 <hr>
 
             {% endfor %}
