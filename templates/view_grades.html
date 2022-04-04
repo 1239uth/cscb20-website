@@ -25,6 +25,8 @@
             <p>Score: {{grade.score}}%</p>
             <p>Weight: {{grade.weight}}%</p>
 
+
+            {% if requests[loop.index0] == 'none' %}
             <p>Submit a remark request:</p>
             <form action="/remark_request/{{grade.id}}" method="post">
 
@@ -33,6 +35,12 @@
                 <button type="submit">Submit</button>
 
             </form>
+
+            {% else %}
+
+            <p>remark request status: {{requests[loop.index0]}}</p>
+
+            {%endif%}
 
         </div>
         <hr>

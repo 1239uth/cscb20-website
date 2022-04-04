@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from urllib.request import Request
 from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -56,6 +57,7 @@ class RemarkRequest(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     grade_id = db.Column(db.Integer, db.ForeignKey('Grade.id'), nullable = False)
     details = db.Column(db.Text())
+    closed = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f"RemarkRequest('{self.details}')"
@@ -171,11 +173,24 @@ def view_grades():
         return redirect(url_for('login'))
 
     if not session['is_student']:
-        return redirect(url_for('add_grades'))
+        return redirect(url_for('root'))
 
     page_name = 'view_grades'
     grades = get_grades(session['username'])
-    return render_template('view_grades.html', page_name = page_name, grades = grades)
+    requests = []
+    for grade in grades:
+        remark_request = RemarkRequest.query.filter_by(grade_id = grade.id).first()
+
+        if remark_request is None:
+            requests.append("none")
+        else:
+            if remark_request.closed == 0:
+                requests.append("ongoing")
+            else:
+                requests.append("closed")
+
+
+    return render_template('view_grades.html', page_name = page_name, grades = grades, requests=requests)
 
 
 @app.route('/remark_request/<grade_id>', methods=['POST'])
@@ -268,6 +283,13 @@ def view_remark_requests():
                            requests=requests,
                            grades=grades,
                            students=students)
+
+
+@app.route('/close_request/<id>', methods = ['POST'])
+def close_request(id):
+    db.session.query(RemarkRequest).filter(RemarkRequest.id == id).update({'closed': 1})
+    db.session.commit()
+    return redirect(url_for('view_remark_requests'))
 
 
 """

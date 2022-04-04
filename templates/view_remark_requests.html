@@ -18,6 +18,17 @@
             <p>Assessment weight: {{grades[loop.index0].weight}}</p>
             <p>Reason for remark: {{request.details}}</p>
 
+            {% if request.closed == 0 %}
+
+                <form action="/close_request/{{request.id}}" method="post">
+                    <button type="submit">Close</button>
+                </form>
+            {% else %}
+
+                <p>closed</p>
+
+            {%endif%}
+
         </div>
         <hr>
 
