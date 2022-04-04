@@ -12,21 +12,40 @@
         <br>
 
         <section>
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
 
-            {% for id, question in questions | dictsort %}
+                {% for cat, message in messages %}
+                    <div class='{{cat}}'>{{message}}</div>
+                {% endfor %}
 
-                <div class="row">
-                    <h4>{{question}}</h4>
-                    <textarea name="feedback-form" class="feedback-form" rows=5 cols=50 id='q{{id}}'></textarea>
-                    <br>
-                </div>
+            {% endif %}
+        {%endwith%}
+
+            <form acions="/add/feedback" method="POST" name="feedbackForm">
+                <h4> Select an instructor: </h4>
+
+                    <select name="feedbackInstructor" id="feedbackInstructor">
+                        {% for instructor in instructors %}
+                            <option value="{{instructor.id}}">{{instructor.name}}</option>
+                        {% endfor %}
+                    </select>
 
 
-            {% endfor %}
+
+                {% for id, question in questions | dictsort %}
+
+                    <div class="row">
+                        <h4>{{question}}</h4>
+                        <textarea class="feedback-form" rows=5 cols=50 name='feedbackQuestion{{id}}'></textarea>
+                        <br>
+                    </div>
 
 
+                {% endfor %}
+                <button type='submit'>Submit Feedback</button>
 
-            <button>Submit</button>
+            </form>
         </section>
 
 {% endblock %}

@@ -31,7 +31,7 @@ class User(db.Model):
     type = db.Column(db.String(30), nullable = False, default='student')
     username = db.Column(db.String(30), unique = True, nullable = False)
     email = db.Column(db.String(100), unique = True, nullable = False)
-    password = db.Column(db.String(30), nullable = False)
+    password = db.Column(db.String(100), nullable = False)
     name = db.Column(db.String(30), nullable = False)
     grades = db.relationship('Grade', backref='author', lazy = True) # Student has grades
     feedback = db.relationship('Feedback', backref='author', lazy = True) # Instructor has feedback
@@ -64,11 +64,8 @@ class Feedback(db.Model):
     __tablename__ = 'Feedback'
     id = db.Column(db.Integer, primary_key = True)
     instructor_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
-    response_1 = db.Column(db.Text())
-    response_2 = db.Column(db.Text())
-    response_3 = db.Column(db.Text())
-    response_4 = db.Column(db.Text())
-
+    response = db.Column(db.Text())
+    date_posted = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
 
 
 """
@@ -90,18 +87,19 @@ def login():
 
     if request.method == 'POST':
         username = request.form['loginUsername']
-        password = bcrypt.generate_password_hash(
-                            request.form['loginPassword']).decode('utf-8')
+        password = request.form['loginPassword']
 
         # Check auth
         if check_auth(username, password):
+            print("User/Passwd Matched: Logging the user in")
             session['username'] = username
             session['is_student'] = is_student(username)
             session.permanent = True
             return redirect(url_for('root'))
         else:
             flash("Please check your login credentials and try again!", "error")
-            return render_template('login.html')
+            page_name = "login"
+            return render_template('login.html', page_name = page_name)
 
 """
 Logout
@@ -133,6 +131,7 @@ def register():
         if 'regType' in request.form:
             type = 'instructor'
 
+        print(request.form['regPassword'])
 
         # TODO: validate each field
 
@@ -203,7 +202,7 @@ def announcements():
 """
     Anonymous Feedback (Students)
 """
-@app.route('/add/feedback')
+@app.route('/add/feedback', methods = ['GET', 'POST'])
 def add_feedback():
     if 'username' not in session:
         return redirect(url_for('login'))
@@ -211,8 +210,35 @@ def add_feedback():
     if not session['is_student']:
         return redirect(url_for('view_feedback'))
 
-    page_name = "add_feedback"
-    return render_template("add_feedback.html", page_name = page_name, questions = questions)
+
+    if request.method == 'GET':
+        instructors = get_instructors()
+        print(instructors)
+
+        for instructor in instructors:
+            print(instructor.name)
+
+        page_name = "add_feedback"
+        return render_template("add_feedback.html",
+                               page_name = page_name,
+                               questions = questions,
+                               instructors = instructors)
+
+    if request.method == 'POST':
+
+        instructor_id = int(request.form['feedbackInstructor'])
+
+        response = ""
+        for i in range(4): # assumption: 4 questions in total
+            response += "<h4>" + questions[i + 1] + "</h4>"
+            response += "<p>" + request.form["feedbackQuestion" + str(i + 1)] + "</p>"
+
+        # add response as feedback
+        create_feedback(instructor_id, response)
+
+        flash("Your feedback was successfully sent! Thank you", "success")
+
+        return redirect(url_for('add_feedback'))
 
 """
     Anonymous Feedback (Instructors)
@@ -225,7 +251,9 @@ def view_feedback():
     if session['is_student']:
         return redirect(url_for('add_feedback'))
 
-    return 'TBA'
+    page_name = 'view_feedback'
+    feedbacks = get_all_feedback(session['username'])
+    return render_template("view_feedback.html", page_name = page_name, feedbacks = feedbacks)
 
 
 """
@@ -301,23 +329,46 @@ def create_user(username, name, email, password, type):
     db.session.add(user)
     db.session.commit()
 
+"""
+    Precondition: <password> is not hashed.
+"""
 def check_auth(username, password):
-
     user = User.query.filter_by(username = username).first()
-    return not user or not bcrypt.check_password_hash(user.password, password)
+    return user and bcrypt.check_password_hash(user.password, password)
 
+# Edge case? bugs when no user in system
 def get_name(username):
-    return User.query.filter_by(username = username).first().name
-
+    if User.query.filter_by(username = username).first():
+        return User.query.filter_by(username = username).first().name
+    else:
+        return "ERROR: No user found by that name"
 
 def is_student(username):
     return User.query.filter_by(username = username).first().type == 'student'
+
+def create_feedback(instructor_id, response):
+    feedback = Feedback(instructor_id = instructor_id, response = response)
+    db.session.add(feedback)
+    db.session.commit()
+
+
+"""
+    Return all instructors
+"""
+def get_instructors():
+    return User.query.filter_by(type = "instructor").all()
+
+
+def get_all_feedback(username):
+    return Feedback.query.filter_by(
+        instructor_id = User.query.filter_by(username=username).first().id).all()
 
 
 """
 Constants & Other variables
 """
 # Can easily make this dynamic, but not a requirement.
+# Using dictionary because it plays nicely with Jinja template
 questions = {1: "What do you like about the instructor teaching?",
              2: "What do you recommend the instructor to do to improve their teaching?",
              3: "What do you like about the labs?",
