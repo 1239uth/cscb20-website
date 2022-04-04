@@ -25,7 +25,7 @@
             <form acions="/add/feedback" method="POST" name="feedbackForm">
                 <h4> Select an instructor: </h4>
 
-                    <select name="feedbackInstructor" id="feedbackInstructor">
+                    <select name="feedbackInstructor" id="feedbackInstructor" required>
                         {% for instructor in instructors %}
                             <option value="{{instructor.id}}">{{instructor.name}}</option>
                         {% endfor %}
@@ -37,7 +37,7 @@
 
                     <div class="row">
                         <h4>{{question}}</h4>
-                        <textarea class="feedback-form" rows=5 cols=50 name='feedbackQuestion{{id}}'></textarea>
+                        <textarea class="feedback-form" rows=5 cols=50 name='feedbackQuestion{{id}}' required></textarea>
                         <br>
                     </div>
 

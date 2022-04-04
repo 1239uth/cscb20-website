@@ -39,23 +39,14 @@ class User(db.Model):
     def __repr__(self):
         return f"User('{self.username}')"
 
-class Assessment(db.Model):
-    __tablename__ = 'Assessment'
-    id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(30), unique = True, nullable = False)
-    type = db.Column(db.String(30), nullable = False)
-    score = db.Column(db.Integer)
-    weight = db.Column(db.Integer, nullable = False)
-
-    def __repr__(self):
-        return f"Assessment('{self.name}', '{self.type}', '{self.weight}%')"
 
 class Grade(db.Model):
     __tablename__ = 'Grade'
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
-    ass_id = db.Column(db.Integer, db.ForeignKey('Assessment.id'), nullable = False)
-    score = db.Column(db.Integer)
+    ass_name = db.Column(db.String(30), nullable = False)
+    score = db.Column(db.Float, nullable = False)
+    weight = db.Column(db.Float, nullable = False)
 
     def __repr__(self):
         return f"Grade('{self.score}%')"
@@ -123,7 +114,7 @@ def register():
 
     if request.method == 'POST':
         username = request.form['regUsername']
-        name = request.form['regName']
+        name = request.form['regName'].capitalize()
         email = request.form['regEmail']
         password = bcrypt.generate_password_hash(
                             request.form['regPassword']).decode('utf-8')
@@ -131,12 +122,13 @@ def register():
         if 'regType' in request.form:
             type = 'instructor'
 
-        print(request.form['regPassword'])
-
-        # TODO: validate each field
-
-        # Add to database
-        create_user(username, name, email, password, type)
+        # Prevents integrity error
+        if user_exists(username, email):
+            flash("A user with that username or email aleady exists.", "error")
+            return redirect(url_for('register'))
+        else:
+            # Add to database
+            create_user(username, name, email, password, type)
 
         # Flash & Render
         flash("You were successfully registered! Please log in.", "success")
@@ -162,6 +154,7 @@ def root():
 
 """
     View Grades
+    Student view only
 """
 @app.route('/view/grades')
 def view_grades():
@@ -175,17 +168,54 @@ def view_grades():
     return render_template('view_grades.html', page_name = page_name)
 
 """
-    Add Grades
+    View all students
+    Instructor view only
 """
-@app.route('/add/grades')
-def add_grades():
+@app.route('/view/students')
+def view_students():
     if 'username' not in session:
         return redirect(url_for('login'))
 
     if session['is_student']:
         return redirect(url_for('view_grades'))
 
-    return ''
+    if request.method == 'GET':
+        page_name = 'view_students'
+        students = get_all_students()
+        return render_template('view_students.html', page_name=page_name, students=students)
+
+
+
+
+
+"""
+    View and add student grades
+    Instructor view only
+"""
+@app.route('/view/student/<username>', methods = ['GET', 'POST'])
+def view_student(username):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if session['is_student']:
+        return redirect(url_for('view_grades'))
+
+    student = User.query.filter_by(username = username).first()
+    grades = Grade.query.filter_by(user_id = student.id).all()
+
+    if request.method == 'POST':
+        ass_name = request.form['gradeAssName']
+        weight = request.form['gradeWeight']
+        score = request.form['gradeScore']
+        create_grade(ass_name, weight, score, student.id)
+
+        flash("Grade added", "success")
+
+    page_name = "view_student"
+    return render_template('view_student.html', page_name=page_name, student=student, grades=grades)
+
+
+
 
 """
     Announcements
@@ -343,6 +373,12 @@ def get_name(username):
     else:
         return "ERROR: No user found by that name"
 
+def user_exists(username, email):
+    username_match = User.query.filter_by(username = username).first()
+    email_match = User.query.filter_by(email = email).first()
+
+    return email_match is not None or username_match is not None
+
 def is_student(username):
     return User.query.filter_by(username = username).first().type == 'student'
 
@@ -362,6 +398,15 @@ def get_instructors():
 def get_all_feedback(username):
     return Feedback.query.filter_by(
         instructor_id = User.query.filter_by(username=username).first().id).all()
+
+def get_all_students():
+    return User.query.filter_by(type = 'student').all()
+
+
+def create_grade(ass_name, weight, score, student_id):
+    grade = Grade(ass_name=ass_name, weight=weight, score=score, user_id=student_id)
+    db.session.add(grade)
+    db.session.commit()
 
 
 """

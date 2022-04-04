@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/' + page_name + '.css') }}">
     <title>CSCB20</title>
 </head>
@@ -14,7 +15,7 @@
                 {% if session.is_student %}
                     <a href="/view/grades">View Grades</a>
                 {% else %}
-                    <a href='/add/grades'>Add Grades</a>
+                    <a href='/view/students'>Students</a>
                 {% endif %}
                 <a href="/weeklyContent">Weekly Content</a>
                 <a href="/assignments">Assignments</a>

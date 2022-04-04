@@ -7,6 +7,16 @@
 
 <h3>Register</h3>
 
+{% with messages = get_flashed_messages(with_categories = True) %}
+    {% if messages %}
+
+        {% for cat, message in messages %}
+            <div class='{{cat}}'>{{message}}</div>
+        {% endfor %}
+
+    {% endif %}
+{%endwith%}
+
 <form action="/register" method="post">
 
 <div class="row">
