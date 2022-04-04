@@ -1,8 +1,49 @@
 {% extends "template.html" %}
 {% block content %}
 
-{% if not session.username %}
+{% if session.username %}
 
+    <h1>Your grades</h1>
+
+    {% with messages = get_flashed_messages(with_categories = True) %}
+        {% if messages %}
+
+            {% for cat, message in messages %}
+                <div class='{{cat}}'>{{message}}</div>
+            {% endfor %}
+
+        {% endif %}
+    {%endwith%}
+
+
+    {% if grades %}
+
+    {% for grade in grades %}
+
+        <div class="row">
+            <p>Name: {{grade.ass_name}} </p>
+            <p>Score: {{grade.score}}%</p>
+            <p>Weight: {{grade.weight}}%</p>
+
+            <p>Submit a remark request:</p>
+            <form action="/remark_request/{{grade.id}}" method="post">
+
+                <p>Explain what should be remarked:</p>
+                <textarea name="remarkContent" required></textarea>
+                <button type="submit">Submit</button>
+
+            </form>
+
+        </div>
+        <hr>
+
+    {% endfor %}
+
+    {% else %}
+
+    <p>You do not have any grades yet.</p>
+
+    {% endif %}
 
 
 

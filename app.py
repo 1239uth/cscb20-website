@@ -51,6 +51,15 @@ class Grade(db.Model):
     def __repr__(self):
         return f"Grade('{self.score}%')"
 
+class RemarkRequest(db.Model):
+    __tablename__ = 'RemarkRequest'
+    id = db.Column(db.Integer, primary_key = True)
+    grade_id = db.Column(db.Integer, db.ForeignKey('Grade.id'), nullable = False)
+    details = db.Column(db.Text())
+
+    def __repr__(self):
+        return f"RemarkRequest('{self.details}')"
+
 class Feedback(db.Model):
     __tablename__ = 'Feedback'
     id = db.Column(db.Integer, primary_key = True)
@@ -165,7 +174,22 @@ def view_grades():
         return redirect(url_for('add_grades'))
 
     page_name = 'view_grades'
-    return render_template('view_grades.html', page_name = page_name)
+    grades = get_grades(session['username'])
+    return render_template('view_grades.html', page_name = page_name, grades = grades)
+
+
+@app.route('/remark_request/<grade_id>', methods=['POST'])
+def submit_remark_request(grade_id):
+
+    details = request.form['remarkContent']
+    remark_request = RemarkRequest(grade_id = grade_id, details = details)
+    db.session.add(remark_request)
+    db.session.commit()
+
+    flash("Your remark request was submitted", "success")
+    return redirect(url_for('view_grades'))
+
+
 
 """
     View all students
@@ -210,11 +234,40 @@ def view_student(username):
         create_grade(ass_name, weight, score, student.id)
 
         flash("Grade added", "success")
+        return redirect(url_for('view_student', username=username)) # do not remove
 
     page_name = "view_student"
     return render_template('view_student.html', page_name=page_name, student=student, grades=grades)
 
 
+
+@app.route('/view/remark_requests')
+def view_remark_requests():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if session['is_student']:
+        return redirect(url_for('view_grades'))
+
+    requests = RemarkRequest.query.all()
+
+    # Paralel array
+    grades = []
+    students = []
+    for request in requests:
+        grade = Grade.query.filter_by(id = request.grade_id).first()
+        grades.append(grade)
+
+        student = User.query.filter_by(id = grade.user_id).first()
+        students.append(student)
+
+
+    page_name = 'view_remark_requests'
+    return render_template('view_remark_requests.html',
+                           page_name=page_name,
+                           requests=requests,
+                           grades=grades,
+                           students=students)
 
 
 """
@@ -407,6 +460,10 @@ def create_grade(ass_name, weight, score, student_id):
     grade = Grade(ass_name=ass_name, weight=weight, score=score, user_id=student_id)
     db.session.add(grade)
     db.session.commit()
+
+def get_grades(username):
+    user = User.query.filter_by(username = username).first()
+    return Grade.query.filter_by(user_id=user.id).all()
 
 
 """

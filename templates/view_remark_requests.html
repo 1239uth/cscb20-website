@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+{% block content %}
+
+{% if session.username %}
+
+    <h1>View all remark requests</h1>
+
+
+    {% if requests %}
+
+    {% for request in requests %}
+
+        <div class="row">
+            <p>Student name: {{students[loop.index0].name}}</p>
+            <p>Student email: {{students[loop.index0].email}}</p>
+            <p>Name of the assessment:  {{grades[loop.index0].ass_name}} </p>
+            <p>Given Score: {{grades[loop.index0].score}}</p>
+            <p>Assessment weight: {{grades[loop.index0].weight}}</p>
+            <p>Reason for remark: {{request.details}}</p>
+
+        </div>
+        <hr>
+
+    {% endfor %}
+
+    {% else %}
+
+    <p>There are no remark requests! Hurray!</p>
+
+    {% endif %}
+
+
+
+{%endif%}
+
+{% endblock %}
