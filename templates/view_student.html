@@ -20,21 +20,24 @@
 
         <form action="/view/student/{{student.username}}" method="post">
 
-            <div class="row">
-                <label for="gradeAssName">Assessment Name</label>
-                <input type="text" required placeholder="Test 1" name="gradeAssName"/>
-            </div>
+            <label for="gradeAssName">Assessment Name</label>
+            <br>
+            <input type="text" required placeholder="Test 1" name="gradeAssName"/>
 
-            <div class="row">
-                <label for="gradeWeight">Weight (%)</label>
-                <input type="number" required placeholder="15" name="gradeWeight"/>
-            </div>
+            <br>
 
-            <div class="row">
-                <label for="gradeScore">Student Score (%)</label>
-                <input type="number" required placeholder="85" name="gradeScore"/>
-            </div>
+            <label for="gradeWeight">Weight (%)</label>
+            <br>
+            <input type="number" required placeholder="15" name="gradeWeight"/>
 
+            <br>
+
+            <label for="gradeScore">Student Score (%)</label>
+            <br>
+            <input type="number" required placeholder="85" name="gradeScore"/>
+
+            <br>
+            
             <button type="submit">Add Grade</button>
 
 

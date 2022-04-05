@@ -28,7 +28,11 @@ body {
 header {
     padding: 1% 0;
     border-bottom: 1px solid  rgb(78, 109, 143);
-    width: 1000px;
+    width: 500px;
+}
+
+header.loggedIn {
+    width: 1100px;
 }
 
 main {
@@ -103,9 +107,35 @@ main a:hover {
     text-decoration: unset;
 }
 
+/* FORM */
+form > button {
+    margin-top: 0px;
+}
 
-/* MOBILE DESIGN */
-@media screen and (max-width: 1000px) {
+form > input {
+    margin-bottom: 15px;
+    background-color: rgb(255, 245, 230);
+    padding: 2px;
+}
+
+form > label {
+    font-style: italic;
+}
+
+p.empty {
+    height: 17px;
+}
+
+p.error {
+    color: rgb(177, 2, 2);
+}
+
+
+/**
+    MOBILE DESIGN
+    (NOT logged in)
+**/
+@media screen and (max-width: 500px) {
     header {
         border-bottom: 0px;
     }
@@ -113,10 +143,31 @@ main a:hover {
     header nav {
         flex-direction: column;
         justify-content: space-around;
-        height: 350px;
+        height: 80px;
     }
 
     header nav a {
+        padding-bottom: 10px;
+        border-bottom: 2px solid  rgb(78, 109, 143);
+    }
+}
+
+/**
+    MOBILE DESIGN
+    (logged in)
+**/
+@media screen and (max-width: 1100px) {
+    header.loggedIn {
+        border-bottom: 0px;
+    }
+
+    header.loggedIn nav {
+        flex-direction: column;
+        justify-content: space-around;
+        height: 350px;
+    }
+
+    header.loggedIn nav a {
         padding-bottom: 10px;
         border-bottom: 2px solid  rgb(78, 109, 143);
     }

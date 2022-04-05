@@ -5,37 +5,40 @@
 
 
 
-    <h2>
-        CSCB20 - Introduction to Databases and Web Applications
-    </h2>
+<h1>
+    CSCB20 - Introduction to Databases and Web Applications
+</h1>
 
-    <h3>Login</h3>
+<h3>Login</h3>
 
+<form action="/login" method="post">
+
+    <label for="loginUsername">Username</label>
+    <br>
+    <input type="text" id="loginUsername" name="loginUsername" required />
+
+    <br>
+
+    <label for="loginPassword">Password</label>
+    <br>
+    <input type="password" id="loginPassword" name="loginPassword" required />
+
+    <!-- Error message -->
     {% with messages = get_flashed_messages(with_categories = True) %}
         {% if messages %}
 
             {% for cat, message in messages %}
-                <div class='{{cat}}'>{{message}}</div>
+                <p class='{{cat}}'>{{message}}</p>
             {% endfor %}
-
+        {% else %}
+            <p class="empty"></p>
         {% endif %}
     {%endwith%}
-    <form action="/login" method="post">
 
-    <div class="row">
-        <label for="loginUsername">Username</label>
-        <input type="text" id="loginUsername" name="loginUsername" required/>
-    </div>
+    <br>
 
-    <div class="row">
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" name="loginPassword" required/>
-    </div>
-
-    <div class="row">
-        <button type="submit" name="loginBtn" id="loginBtn">Login</button>
-    </div>
-    </form>
+    <button type="submit" name="loginBtn" id="loginBtn">Login</button>
+</form>
 
 {%endif%}
 

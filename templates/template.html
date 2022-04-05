@@ -8,9 +8,9 @@
     <title>CSCB20</title>
 </head>
 <body>
-    <header>
-        <nav>
-            {% if session.username %}
+    {% if session.username %}
+        <header class="loggedIn">
+            <nav>
                 <a href="/">Home</a>
                 {% if session.is_student %}
                     <a href="/view/grades">View Grades</a>
@@ -30,12 +30,17 @@
                     <a href="/view/feedback">Feedback</a>
                 {% endif %}
                 <a href="/logout">Log out</a>
-            {% else %}
+            </nav>
+        </header>
+    {% else %}
+        <header>
+            <nav>
                 <a href="/login">Login</a>
-                <a href="/register">register</a>
-            {% endif %}
-        </nav>
-    </header>
+                <a href="/register">Register</a>
+            </nav>
+        </header>
+    {% endif %}
+
     <main>
 
         {% block content %}

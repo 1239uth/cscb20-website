@@ -1,52 +1,56 @@
 {% extends "template.html" %}
 {% block content %}
 
-<h2>
+<h1>
     CSCB20 - Introduction to Databases and Web Applications
-</h2>
+</h1>
 
 <h3>Register</h3>
 
-{% with messages = get_flashed_messages(with_categories = True) %}
-    {% if messages %}
-
-        {% for cat, message in messages %}
-            <div class='{{cat}}'>{{message}}</div>
-        {% endfor %}
-
-    {% endif %}
-{%endwith%}
-
 <form action="/register" method="post">
 
-<div class="row">
     <label for="regName">Full Name</label>
+    <br>
     <input type="text" id="regName" name="regName" required/>
-</div>
 
-<div class="row">
+    <br>
+
     <label for="regEmail">Email</label>
+    <br>
     <input type="email" id="regEmail" name="regEmail" required/>
-</div>
 
-<div class="row">
+    <br>
+
     <label for="regUsername">Username</label>
+    <br>
     <input type="text" id="regUsername" name="regUsername" required/>
-</div>
 
-<div class="row">
+    <br>
+
     <label for="regPassword">Password</label>
+    <br>
     <input type="password" id="regPassword" name="regPassword" required/>
-</div>
 
-<div class="row">
+    <br>
+
     <label for="regType">Are you an instructor?</label>
     <input type="checkbox" id="regType" name="regType">
-</div>
 
-<div class="row">
+    {% with messages = get_flashed_messages(with_categories = True) %}
+        {% if messages %}
+
+            {% for cat, message in messages %}
+                <p class='{{cat}}'>{{message}}</p>
+            {% endfor %}
+
+        {% else %}
+            <p class="empty"></p>
+            {% endif %}
+        {%endwith%}
+
+    <br>
+
     <button type="submit" name="regBtn" id="regBtn">Register</button>
-</div>
 </form>
 
 {% endblock %}
