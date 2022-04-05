@@ -9,7 +9,7 @@
         {% if messages %}
 
             {% for cat, message in messages %}
-                <div class='{{cat}}'>{{message}}</div>
+                <div class='flash {{cat}}'>{{message}}</div>
             {% endfor %}
 
         {% endif %}
@@ -37,7 +37,7 @@
             <input type="number" required placeholder="85" name="gradeScore"/>
 
             <br>
-            
+
             <button type="submit">Add Grade</button>
 
 

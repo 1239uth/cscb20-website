@@ -28,7 +28,7 @@
         {% if messages %}
 
             {% for cat, message in messages %}
-                <p class='{{cat}}'>{{message}}</p>
+                <p class="flash {{cat}}">{{message}}</p>
             {% endfor %}
         {% else %}
             <p class="empty"></p>

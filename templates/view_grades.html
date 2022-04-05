@@ -9,7 +9,7 @@
         {% if messages %}
 
             {% for cat, message in messages %}
-                <div class='{{cat}}'>{{message}}</div>
+                <div class='flash {{cat}}'>{{message}}</div>
             {% endfor %}
 
         {% endif %}
@@ -18,34 +18,42 @@
 
     {% if grades %}
 
-    {% for grade in grades %}
+        {% for grade in grades %}
 
-        <div class="row">
-            <p>Name: {{grade.ass_name}} </p>
-            <p>Score: {{grade.score}}%</p>
-            <p>Weight: {{grade.weight}}%</p>
-
+            <section class="card">
+                <div class="titles">
+                    <p>Name: </p>
+                    <p>Score: </p>
+                    <p>Weight:</p>
+                </div>
+                <div>
+                    <p>{{grade.ass_name}} </p>
+                    <p>{{grade.score}}%</p>
+                    <p>{{grade.weight}}%</p>
+                </div>
+            </section>
+                
 
             {% if requests[loop.index0] == 'none' %}
-            <p>Submit a remark request:</p>
-            <form action="/remark_request/{{grade.id}}" method="post">
+                <p>Submit a remark request</p>
+                <form action="/remark_request/{{grade.id}}" method="post">
 
-                <p>Explain what should be remarked:</p>
-                <textarea name="remarkContent" required></textarea>
-                <button type="submit">Submit</button>
+                    <p>Explain in detail what should be remarked:</p>
+                    <textarea name="remarkContent" required></textarea>
+                    <br>
+                    <button type="submit">Submit</button>
 
-            </form>
+                </form>
 
             {% else %}
 
-            <p>remark request status: {{requests[loop.index0]}}</p>
+                <p>remark request status: {{requests[loop.index0]}}</p>
 
             {%endif%}
 
-        </div>
-        <hr>
+            <hr>
 
-    {% endfor %}
+        {% endfor %}
 
     {% else %}
 

@@ -3,42 +3,47 @@
 
 {% if session.username %}
 
-    <h1>View all remark requests</h1>
+<h1>View all remark requests</h1>
 
 
-    {% if requests %}
+{% if requests %}
 
     {% for request in requests %}
 
-        <div class="row">
-            <p>Student name: {{students[loop.index0].name}}</p>
-            <p>Student email: {{students[loop.index0].email}}</p>
-            <p>Name of the assessment:  {{grades[loop.index0].ass_name}} </p>
-            <p>Given Score: {{grades[loop.index0].score}}</p>
-            <p>Assessment weight: {{grades[loop.index0].weight}}</p>
-            <p>Reason for remark: {{request.details}}</p>
+        <section class="card {% if request.closed == 1 %} gray-text {% endif %}">
+            <div class="titles">
+                <p>Student name:</p>
+                <p>Student email: </p>
+                <p>Name of the assessment:</p>
+                <p>Given Score:</p>
+                <p>Assessment weight:</p>
+                <p>Reason for remark: </p>
+            </div>
+            <div>
+                <p>{{students[loop.index0].name}}</p>
+                <p>{{students[loop.index0].email}}</p>
+                <p>{{grades[loop.index0].ass_name}} </p>
+                <p>{{grades[loop.index0].score}}</p>
+                <p>{{grades[loop.index0].weight}}</p>
+                <p>{{request.details}}</p>
+            </div>
+        </section>
+        {% if request.closed == 0 %}
+            <form action="/close_request/{{request.id}}" method="post">
+                <button type="submit">Close</button>
+            </form>
 
-            {% if request.closed == 0 %}
+        {% endif %}
 
-                <form action="/close_request/{{request.id}}" method="post">
-                    <button type="submit">Close</button>
-                </form>
-            {% else %}
-
-                <p>closed</p>
-
-            {%endif%}
-
-        </div>
-        <hr>
+            <hr>
 
     {% endfor %}
 
-    {% else %}
+{% else %}
 
-    <p>There are no remark requests! Hurray!</p>
+<p>There are no remark requests! Hurray!</p>
 
-    {% endif %}
+{% endif %}
 
 
 
