@@ -59,6 +59,9 @@ header nav {
 }
 /* ^^ MAIN STRUCTURE ^^ */
 
+
+
+
 /* BUTTON */
 button {
     font-weight: bold;
@@ -82,6 +85,9 @@ button:active {
     border: 3px solid grey;
     box-shadow: 0.5px grey;
 }
+
+
+
 
 /* LINKS */
 header nav a {
@@ -107,6 +113,9 @@ main a:hover {
     text-decoration: unset;
 }
 
+
+
+
 /* FORM */
 form > button {
     margin-top: 0px;
@@ -122,10 +131,23 @@ form > label {
     font-style: italic;
 }
 
+form.forBtn {
+    margin-top: 20px;
+}
+
+textarea {
+    border: 2px solid black;
+    width: 75%;
+    height: 100px;
+    background-color: rgb(255, 245, 230);
+}
+
+
 p.empty {
     height: 20px;
 }
 
+/* FLASH text */
 p.flash {
     border: 2px solid black;
     border-radius: 10px;
@@ -141,16 +163,10 @@ p.error {
 
 p.success {
     background-color: rgb(187, 231, 187);
-    color: rgb(0, 94, 0);
+    color: rgb(0, 58, 0);
 }
 
 
-textarea {
-    border: 2px solid black;
-    width: 75%;
-    height: 100px;
-    background-color: rgb(255, 245, 230);
-}
 
 
 /* CARD */
@@ -160,12 +176,12 @@ section.card {
     padding: 10px;
     border-radius: 20px;
     width: fit-content;
-    background-color: rgb(255, 245, 230);
+    background-color: rgb(248, 227, 196);
     border: 2px solid black;
 }
 
 section.card > div {
-    margin-right: 20px;
+    margin-right: 30px;
 }
 
 section.card > div.titles {
@@ -174,6 +190,11 @@ section.card > div.titles {
 
 hr {
     margin: 30px 0;
+    border-top: 2px solid black;
+}
+
+hr#main-line {
+    border-top: 3px solid black;
 }
 
 /**

@@ -4,3 +4,9 @@ h1 {
     font-size: 40px;
     margin-bottom: 60px;
 }
+
+main > p {
+    font-size: large;
+    font-style: italic;
+    width: fit-content;
+}

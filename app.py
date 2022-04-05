@@ -242,6 +242,7 @@ def view_student(username):
     student = User.query.filter_by(username = username).first()
     grades = Grade.query.filter_by(user_id = student.id).all()
 
+
     if request.method == 'POST':
         ass_name = request.form['gradeAssName']
         weight = request.form['gradeWeight']

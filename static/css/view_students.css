@@ -1,0 +1,30 @@
+main > div {
+    display: flex;
+}
+
+h1 {
+    margin-bottom: 40px;
+
+}
+
+section > a {
+    display: block;
+    font-size: 18px;
+}
+
+section > a,
+section > p {
+    margin: 0;
+    padding: 15px;
+    height: 60px;
+}
+
+.students p {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+section.students {
+    border-right: 3px solid black;
+}
