@@ -16,7 +16,7 @@
     {%endwith%}
 
         <!-- Form to add grades -->
-        <h2>Add Grade</h2>
+        <h1>Add Grade</h1>
 
         <form action="/view/student/{{student.username}}" method="post">
 
@@ -46,34 +46,35 @@
         <hr id="main-line">
 
         <!-- Existing grades -->
-        <h2>{{student.name}}'s Grades</h2>
+        <h1>{{student.name}}'s Grades</h1>
 
 
         {% if grades %}
+        <section class="grid">
 
             {% for grade in grades %}
+                <div>
+                    <section class="card">
+                        <div class="titles">
+                            <p>Name: </p>
+                            <p>Score:</p>
+                            <p>Weight:</p>
+                        </div>
+                        <div>
+                            <p>{{grade.ass_name}} </p>
+                            <p>{{grade.score}}%</p>
+                            <p>{{grade.weight}}%</p>
+                        </div>
+                    </section>
+                        
 
-                <section class="card">
-                    <div class="titles">
-                        <p>Name: </p>
-                        <p>Score:</p>
-                        <p>Weight:</p>
-                    </div>
-                    <div>
-                        <p>{{grade.ass_name}} </p>
-                        <p>{{grade.score}}%</p>
-                        <p>{{grade.weight}}%</p>
-                    </div>
-                </section>
-                    
+                    <form class="forBtn" action="/edit/student/{{student.username}}/grade/{{grade.id}}" method="get">
+                        <button type="submit">Edit</button>
+                    </form>
 
-                <form class="forBtn" action="/edit/student/{{student.username}}/grade/{{grade.id}}" method="get">
-                    <button type="submit">Edit</button>
-                </form>
-
-                <hr>
-
+                </div>
             {% endfor %}
+        </section>
 
         {% else %}
 
