@@ -9,14 +9,14 @@
         {% if messages %}
 
             {% for cat, message in messages %}
-                <div class='flash {{cat}}'>{{message}}</div>
+                <p class='flash {{cat}}'>{{message}}</p>
             {% endfor %}
 
         {% endif %}
     {%endwith%}
 
         <!-- Form to add grades -->
-        <h4>Add Grade</h4>
+        <h2>Add Grade</h2>
 
         <form action="/view/student/{{student.username}}" method="post">
 
@@ -43,24 +43,31 @@
 
         </form>
 
-        <hr>
+        <hr id="main-line">
 
         <!-- Existing grades -->
-        <h3>{{student.name}}'s Grades</h3>
+        <h2>{{student.name}}'s Grades</h2>
 
 
-        <!-- use table here? -->
         {% if grades %}
 
             {% for grade in grades %}
 
-                <div class="row">
-                    <p>Name: {{grade.ass_name}} </p>
-                    <p>Score: {{grade.score}}%</p>
-                    <p>Weight: {{grade.weight}}%</p>
-                </div>
+                <section class="card">
+                    <div class="titles">
+                        <p>Name: </p>
+                        <p>Score:</p>
+                        <p>Weight:</p>
+                    </div>
+                    <div>
+                        <p>{{grade.ass_name}} </p>
+                        <p>{{grade.score}}%</p>
+                        <p>{{grade.weight}}%</p>
+                    </div>
+                </section>
+                    
 
-                <form action="/edit/student/{{student.username}}/grade/{{grade.id}}" method="get">
+                <form class="forBtn" action="/edit/student/{{student.username}}/grade/{{grade.id}}" method="get">
                     <button type="submit">Edit</button>
                 </form>
 

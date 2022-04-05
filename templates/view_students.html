@@ -1,18 +1,19 @@
 {% extends "template.html" %}
 {% block content %}
 
-    {%for student in students %}
-        <!-- (For uthman): Use a custom table! -->
-        <div class="student-row">
-            <div class="student-col">
-                {{student.name}}
-            </div>
-            <div class="student-col">
+    <h1>Students</h1>
+
+    <div>
+        <section class="students">
+            {%for student in students %}
+                <p>{{student.name}}</p>
+            {%endfor%}
+        </section>
+
+        <section>
+            {%for student in students %}
                 <a href="/view/student/{{student.username}}">View Grades</a>
-            </div>
-        </div>
-
-    {% endfor %}
-
-
+            {%endfor%}
+        </section>
+    </div>
 {% endblock %}

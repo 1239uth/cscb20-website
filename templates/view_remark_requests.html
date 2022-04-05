@@ -29,10 +29,11 @@
             </div>
         </section>
         {% if request.closed == 0 %}
-            <form action="/close_request/{{request.id}}" method="post">
+            <form class="forBtn" action="/close_request/{{request.id}}" method="post">
                 <button type="submit">Close</button>
             </form>
-
+        {% else %}
+            <p>Closed</p>
         {% endif %}
 
             <hr>

@@ -1,31 +1,28 @@
 {% extends "template.html" %}
 {% block content %}
 
-    <section>
-        <h2>Your feedback</h2>
-        <p>Here you can view all feedback sent to you</p>
-
-        <div class="feedback-container">
-
-            {% if feedbacks | length < 1 %}
-
-                <p>Sorry, no feedback yet.</p>
-
-            {% endif %}
-
-            {% for feedback in feedbacks %}
-
-                <div class="feedback">
-                    {{feedback.response|safe}}
-                </div>
-
-                <hr>
-
-            {% endfor %}
-
-        </div>
+    <h2>Your Feedback</h2>
+    <p>Here is the feedback sent by students. </p>
+    <br>
 
 
-    </section>
+    {% if feedbacks | length < 1 %}
+
+        <p>Sorry, no feedback yet.</p>
+
+    {% endif %}
+
+    {% for feedback in feedbacks %}
+
+        <p>
+            {{feedback.response|safe}}
+        </p>
+
+        <hr>
+
+    {% endfor %}
+
+
+
 
 {% endblock %}
