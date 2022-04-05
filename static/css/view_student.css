@@ -1,0 +1,15 @@
+section.grid {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+section.card {
+    justify-self: center;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
