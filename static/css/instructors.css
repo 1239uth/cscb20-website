@@ -1,52 +1,6 @@
-* {
-    box-sizing: border-box;
-}
-
-html, 
-body {
-    height: 100%;
-    width: 100%;
-
-    font-family: 'Georgia', 'Times New Roman', Times, serif;
-
-    background-color: rgb(191, 206, 223);
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    text-align: center;
-}
-
-header {
-    padding: 1% 0;
-    border-bottom: 1px solid  rgb(78, 109, 143);
-    width: 768px;
-}
 
 main {
     padding: 5%;
-    align-self: flex-start;
-    text-align: start;
-    width: 100%;
-}
-
-footer {
-    border-top: 2px solid rgb(78, 109, 143);
-    width: 500px;
-    margin-top: auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    padding: 1% 0;
-}
-
-header>nav {
-    display: flex;
-    justify-content: space-evenly;
 }
 
 section {
@@ -90,47 +44,4 @@ img {
     border-radius: 50%;
     height: 300px;
     width: 300px;
-}
-
-
-
-/* LINKS */
-header>nav>a {
-    color: rgb(50, 82, 118);
-    padding: 0 7px;
-    text-decoration: unset;
-    font-weight: 600;
-    text-shadow: 0.3px 0.3px  rgb(78, 109, 143);
-}
-header>nav>a:hover {
-    text-shadow: 0.5px 1.5px  rgb(78, 109, 143);
-    font-size: 16.5px;
-}
-
-footer a:visited, 
-footer a:link {
-    color:rgb(78, 109, 143);
-}
-footer a:hover {
-    color:rgb(111, 144, 180);
-    text-decoration: unset;
-}
-
-
-/* MOBILE DESIGN */
-@media screen and (max-width: 768px) {
-    header {
-        border-bottom: 0px;
-    }
-
-    header nav {
-        flex-direction: column;
-        justify-content: space-around;
-        height: 300px;
-    }
-
-    header nav a {
-        padding-bottom: 10px;
-        border-bottom: 2px solid  rgb(78, 109, 143);
-    }
 }

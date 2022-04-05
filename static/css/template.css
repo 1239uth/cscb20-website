@@ -28,7 +28,7 @@ body {
 header {
     padding: 1% 0;
     border-bottom: 1px solid  rgb(78, 109, 143);
-    width: 768px;
+    width: 1000px;
 }
 
 main {
@@ -54,10 +54,6 @@ header nav {
     justify-content: space-evenly;
 }
 /* ^^ MAIN STRUCTURE ^^ */
-
-textarea {
-    border: 2px solid black;
-}
 
 /* BUTTON */
 button {
@@ -109,7 +105,7 @@ main a:hover {
 
 
 /* MOBILE DESIGN */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     header {
         border-bottom: 0px;
     }
@@ -117,7 +113,7 @@ main a:hover {
     header nav {
         flex-direction: column;
         justify-content: space-around;
-        height: 300px;
+        height: 350px;
     }
 
     header nav a {
