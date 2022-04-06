@@ -34,6 +34,10 @@ h2 {
     margin: 10px;
 }
 
+a.empty {
+    width: 50px;
+}
+
 /* MOBILE DESIGN */
 @media screen and (max-width: 768px) {
     .headers>li:nth-of-type(3),
