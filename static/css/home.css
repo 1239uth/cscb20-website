@@ -3,7 +3,6 @@ main nav {
     justify-content: space-around;
 }
 
-
 /* BUTTONS */
 .buttons a:link, 
 .buttons a:visited {
@@ -29,7 +28,11 @@ main nav {
     box-shadow: 0.5px grey;
 }
 
-
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
 
 /* MOBILE DESIGN */
 @media screen and (max-width: 768px) {
