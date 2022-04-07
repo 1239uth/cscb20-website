@@ -17,8 +17,6 @@ app.config['SECRET_KEY'] = urandom(16)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///assignment3.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours = 2)
 
-app.secret_key = b"secretkey"
-
 
 """
     Encryption Config
