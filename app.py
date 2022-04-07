@@ -3,6 +3,8 @@ from urllib.request import Request
 from flask import Flask, render_template, url_for, flash, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from os import urandom
+
 
 
 app = Flask(__name__, template_folder="templates")
@@ -11,7 +13,7 @@ app = Flask(__name__, template_folder="templates")
 """
     Session Config
 """
-app.config['SECRET_KEY'] = 'secret_key' # TODO: use encryption!
+app.config['SECRET_KEY'] = urandom(16)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///assignment3.db'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours = 2)
 
