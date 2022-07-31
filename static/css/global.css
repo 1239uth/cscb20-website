@@ -7,14 +7,14 @@
     box-sizing: border-box;
 }
 
-html, 
+html,
 body {
     height: 100%;
     width: 100%;
 
     font-family: 'Georgia', 'Times New Roman', Times, serif;
 
-    background-color: rgb(191, 206, 223);
+    background-color: rgb(185, 196, 210);
 }
 
 body {
@@ -27,7 +27,7 @@ body {
 
 header {
     padding: 1% 0;
-    border-bottom: 1px solid  rgb(78, 109, 143);
+    border-bottom: 1px solid rgb(78, 109, 143);
     width: 500px;
 }
 
@@ -37,6 +37,7 @@ header.loggedIn {
 
 main {
     width: 100%;
+    max-width: 1300px;
     padding: 5% 10%;
     text-align: start;
 }
@@ -56,11 +57,12 @@ header nav {
     display: flex;
     justify-content: space-evenly;
 }
+
 /* ^^ MAIN STRUCTURE ^^ */
 
 
 h1 {
-    font-variant: small-caps ;
+    font-variant: small-caps;
 }
 
 
@@ -68,7 +70,6 @@ h1 {
 button {
     font-weight: bold;
     text-decoration: unset;
-    appearance: button;
     color: rgb(27, 27, 27);
 
     border-radius: 10px;
@@ -81,14 +82,13 @@ button {
     padding: 7px 50px;
     margin-top: 30px;
 }
-button:hover, 
+
+button:hover,
 button:active {
     background-color: rgb(255, 196, 107);
     border: 3px solid grey;
     box-shadow: 0.5px grey;
 }
-
-
 
 
 /* LINKS */
@@ -97,22 +97,25 @@ header nav a {
     padding: 0 7px;
     text-decoration: unset;
     font-weight: 600;
-    text-shadow: 0.3px 0.3px  rgb(78, 109, 143);
+    text-shadow: 0.3px 0.3px rgb(78, 109, 143);
 }
+
 header nav a:hover {
-    text-shadow: 0.5px 1.5px  rgb(78, 109, 143);
+    text-shadow: 0.5px 1.5px rgb(78, 109, 143);
     font-size: 16.5px;
 }
 
-footer a:visited, 
+footer a:visited,
 footer a:link,
 main a {
-    color:rgb(78, 109, 143);
+    color: rgb(78, 109, 143);
 }
-footer a:hover, 
+
+footer a:hover,
 main a:hover {
     text-decoration: unset;
 }
+
 header nav a:active,
 footer a:active,
 main a:active {
@@ -120,11 +123,9 @@ main a:active {
 }
 
 
-
-
 /* FORM */
 form > button {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 form > input {
@@ -206,7 +207,7 @@ hr#main-line {
 **/
 @media screen and (max-width: 500px) {
     header {
-        border-bottom: 0px;
+        border-bottom: 0;
     }
 
     header nav {
@@ -217,7 +218,7 @@ hr#main-line {
 
     header nav a {
         padding-bottom: 10px;
-        border-bottom: 2px solid  rgb(78, 109, 143);
+        border-bottom: 2px solid rgb(78, 109, 143);
     }
 }
 
@@ -227,7 +228,7 @@ hr#main-line {
 **/
 @media screen and (max-width: 1100px) {
     header.loggedIn {
-        border-bottom: 0px;
+        border-bottom: 0;
     }
 
     header.loggedIn nav {
@@ -238,7 +239,7 @@ hr#main-line {
 
     header.loggedIn nav a {
         padding-bottom: 10px;
-        border-bottom: 2px solid  rgb(78, 109, 143);
+        border-bottom: 2px solid rgb(78, 109, 143);
     }
 
     h2 {

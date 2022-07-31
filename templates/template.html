@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/' + page_name + '.css') }}">
-    <title>CSCB20</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/icon.ico') }}">
+    <title>CSCB20 |
+        {% for word in page_name.split('_') %}
+            {{ word.capitalize() + ' ' }}
+        {% endfor %}
+    </title>
 </head>
 <body>
-    {% if session.username %}
-        <header class="loggedIn">
-            <nav>
-                <a href="/">Home</a>
-                {% if session.is_student %}
-                    <a href="/view/grades">View Grades</a>
-                {% else %}
-                    <a href='/view/students'>Students</a>
-                    <a href='/view/remark_requests'>Remark requests</a>
-                {% endif %}
-                <a href="/weeklyContent">Weekly Content</a>
-                <a href="/assignments">Assignments</a>
-                <a href="/midterms">Midterms</a>
-                <a href="/labs">Labs</a>
-                <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
-                <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
-                {% if session.is_student %}
-                    <a href="/add/feedback">Feedback</a>
-                {% else %}
-                    <a href="/view/feedback">Feedback</a>
-                {% endif %}
-                <a href="/logout">Log out</a>
-            </nav>
-        </header>
-    {% else %}
-        <header>
-            <nav>
-                <a href="/login">Login</a>
-                <a href="/register">Register</a>
-            </nav>
-        </header>
-    {% endif %}
+{% if session.username %}
+    <header class="loggedIn">
+        <nav>
+            <a href="/">Home</a>
+            {% if session.is_student %}
+                <a href="/view/grades">View Grades</a>
+            {% else %}
+                <a href='/view/students'>Students</a>
+                <a href='/view/remark_requests'>Remark requests</a>
+            {% endif %}
+            <a href="/weekly_content">Weekly Content</a>
+            <a href="/assignments">Assignments</a>
+            <a href="/midterms">Midterms</a>
+            <a href="/labs">Labs</a>
+            <a href="https://piazza.com/class/kxj5alixpjg4ft" target="_blank">Piazza</a>
+            <a href="https://markus.utsc.utoronto.ca/cscb20w22" target="_blank">Markus</a>
+            {% if session.is_student %}
+                <a href="/add/feedback">Feedback</a>
+            {% else %}
+                <a href="/view/feedback">Feedback</a>
+            {% endif %}
+            <a href="/logout">Log out</a>
+        </nav>
+    </header>
+{% else %}
+    <header>
+        <nav>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </nav>
+    </header>
+{% endif %}
 
-    <main>
+<main>
 
-        {% block content %}
+    {% block content %}
 
-        {% endblock %}
+    {% endblock %}
 
-    </main>
-    <footer>
-        <a href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science" target="_blank">Faculty of Computer Science at UTSC</a>
-        <p>Designed by Abdullah Shahid & Uthman Mohamed</p>
-    </footer>
+</main>
+<footer>
+    <a href="https://www.utsc.utoronto.ca/cms/faculty-of-computer-science" target="_blank">
+        Faculty of Computer Science at UTSC
+    </a>
+    <p>Designed by Abdullah Shahid & Uthman Mohamed</p>
+</footer>
 </body>
 </html>
