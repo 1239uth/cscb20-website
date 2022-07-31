@@ -6,11 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/' + page_name + '.css') }}">
     <title>CSCB20 |
-        {% if '_' in page_name %}
-            {{ page_name.split('_')[0].capitalize() }} {{ page_name.split('_')[1].capitalize() }}
-        {% else %}
-            {{ page_name.capitalize() }}
-        {% endif %}
+        {% for word in page_name.split('_') %}
+            {{ word.capitalize() + ' ' }}
+        {% endfor %}
     </title>
 </head>
 <body>

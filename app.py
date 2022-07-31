@@ -525,12 +525,6 @@ def get_grades(username):
     user = User.query.filter_by(username=username).first()
     return Grade.query.filter_by(user_id=user.id).all()
 
-def format_page_name(page_name: str) -> str:
-    new_page_name = ''
-    for word in page_name.split('_'):
-        new_page_name += word.capitalize()
-    return new_page_name
-
 
 """
 Constants & Other variables
