@@ -440,13 +440,13 @@ def midterms():
 """
     Weekly content
 """
-@app.route('/weeklyContent')
+@app.route('/weekly_content')
 def weekly_content():
     if 'username' not in session:
         return redirect(url_for('login'))
 
-    page_name = "weeklyContent"
-    return render_template("weeklyContent.html", page_name=page_name)
+    page_name = "weekly_content"
+    return render_template("weekly_content.html", page_name=page_name)
 
 
 """
@@ -524,6 +524,12 @@ def create_grade(ass_name, weight, score, student_id):
 def get_grades(username):
     user = User.query.filter_by(username=username).first()
     return Grade.query.filter_by(user_id=user.id).all()
+
+def format_page_name(page_name: str) -> str:
+    new_page_name = ''
+    for word in page_name.split('_'):
+        new_page_name += word.capitalize()
+    return new_page_name
 
 
 """
