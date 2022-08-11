@@ -1,5 +1,7 @@
 # CSCB20 Course Website
 
+### [cscb20.herokuapp.com](https://cscb20.herokuapp.com/login)
+
 This is a mock course website for **CSCB20** created by Uthman Mohamed and Abdullah Shahid.
 
 On this website you can view important information regarding the course such as the syllabus, 
